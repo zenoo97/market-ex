@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>그랩마켓</title>
     <link rel="stylesheet" href="./index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div id="header">
@@ -18,50 +19,50 @@
       </div>
       <h1>판매되는 상품들</h1>
       <div id="product-list">
-        <div class="product-card">
-          <div>
-            <img
-              class="product-img"
-              src="./images (2)/images/products/basketball1.jpeg"
-              alt=""
-            />
-          </div>
-          <div class="product-contents">
-            <span class="product-name">농구공 1호</span>
-            <span class="product-price">50000원</span>
-            <div class="product-seller">
-              <img
-                class="product-avatar"
-                src="./images (2)/images/icons/avatar.png"
-                alt=""
-              />
-              <span>그랩</span>
-            </div>
-          </div>
-        </div>
-        <div class="product-card">
-          <div>
-            <img
-              class="product-img"
-              src="./images (2)/images/products/keyboard1.jpg"
-              alt=""
-            />
-          </div>
-          <div class="product-contents">
-            <span class="product-name">키보드 1호</span>
-            <span class="product-price">30000원</span>
-            <div class="product-seller">
-              <img
-                class="product-avatar"
-                src="./images (2)/images/icons/avatar.png"
-                alt=""
-              />
-              <span>그랩</span>
-            </div>
-          </div>
-        </div>
+        <img src="./images (2)/images/products/soccerball1.jpg" alt="" />
       </div>
     </div>
     <div id="footer"></div>
   </body>
+
+  <script>
+    axios
+      .get(
+        "https://dee06ecd-a7c5-42dd-9d57-13540a6fe98e.mock.pstmn.io/products"
+      )
+      .then((result) => {
+        console.log("통신결과 : ", result);
+        const products = result.data.products;
+        console.log(products);
+        let productsHtml = "";
+        for (let i = 0; i < products.length; i++) {
+          productsHtml += `
+      <div class="product-card">
+        <div>
+          <img
+            class="product-img"
+            src="${products[i].imageUrl}"
+            alt=""
+          />
+        </div>
+        <div class="product-contents">
+          <span class="product-name">${products[i].name}</span>
+          <span class="product-price">${products[i].price}</span>
+          <div class="product-seller">
+            <img
+              class="product-avatar"
+              src="./images (2)/images/icons/avatar.png"
+              alt=""
+            />
+            <span>${products[i].seller}</span>
+          </div>
+        </div>
+      </div>`;
+        }
+        document.querySelector("#product-list").innerHTML = productsHtml;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  </script>
 </html>

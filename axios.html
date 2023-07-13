@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 여기서 axios 객체를 만들어서 axios를 사용할 수 있다. -->
+    <script>
+      axios
+        .get("https://jsonplaceholder.typicode.com/todos/1")
+        .then(function (result) {
+          console.log("status code : ", result.status);
+          console.log("data code : ", result.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    </script>
+  </head>
+  <body></body>
+</html>
